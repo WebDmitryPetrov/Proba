@@ -1,0 +1,39 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: devops
+  labels:
+    k8s-app: devops
+spec:
+  volumes:
+    - name: jenkins-home
+      persistentVolumeClaim:
+         claimName: veering-toad-jenkins
+    - name: docker-certs
+      persistentVolumeClaim:
+         claimName: dind-vol-claim
+  containers:
+    - name: jenkins-dind
+      image: docker-dind
+      ports:
+        - name: dind-port
+          containerPort: 3000
+          protocol: TCP
+        - name: sock-port
+          containerPort: 2376
+          protocol: TCP
+      env:
+        - name: DOCKER_TLS_CERTDIR
+          value: /certs
+        - name: REG
+          valueFrom:
+            secretKeyRef:
+              name: reg-token
+              key: token
+      volumeMounts:
+        - name: jenkins-home
+          mountPath: /var/jenkins_home
+        - name: docker-certs
+          mountPath: /certs/client
+      securityContext:
+        privileged: true

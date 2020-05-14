@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webui
+spec:
+  containers:
+    - name: yaweb
+      volumeMounts:
+        - name: webui-pv
+          mountPath: "usr/share/nginx/html"
+      resources:
+        limits:
+          memory: "1000Mi"
+          cpu: "1"
+        requests:
+          cpu: "1"
+          memory: "1000Mi"
+      ports:
+        - containerPort: 80
+          name: "nginx-server"
+  imagePullSecrets:
+    - name: ss-secret
+  volumes:
+    - name: vol1
+      persistentVolumeClaim:
+       claimName: vol1-pvc

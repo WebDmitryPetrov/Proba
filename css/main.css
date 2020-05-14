@@ -1,0 +1,28 @@
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 50px);
+    grid-auto-rows: 50px;
+} 
+#calendar div:hover {
+    background-color: rgb(167, 167, 167);
+}
+#calendar div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+#cdoctor {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: 40px;
+    align-items: center;
+    justify-content: center;
+}
+#cdoctor input {
+    width: 300px;
+}
