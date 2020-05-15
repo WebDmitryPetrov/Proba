@@ -11,14 +11,14 @@ metadata:
 spec:
   serviceAccountName: jenkins-deploy
   volumes:
-    - name: pvc-ce4e7c74-2d55-423c-8edc-87ce4f0f5f2f
+    - name: pvc-90d3b3ce-4d13-46e5-a355-9a2a5b785806
       persistentVolumeClaim:
          claimName: my-release-jenkins
     - name: docker-certs
       persistentVolumeClaim:
          claimName: docker-certs-claim
   imagePullSecrets:
-    - name: regcred2
+    - name: regcred
   containers:
     - name: jenkins-dind
       image: docker:dind
@@ -38,7 +38,7 @@ spec:
               name: reg-token
               key: token
       volumeMounts:
-        - name: pvc-ce4e7c74-2d55-423c-8edc-87ce4f0f5f2f
+        - name: pvc-90d3b3ce-4d13-46e5-a355-9a2a5b785806
           mountPath: /var/jenkins_home
         - name: docker-certs
           mountPath: /certs/client
