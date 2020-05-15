@@ -58,6 +58,12 @@ spec:
         name: deploy-container
         labels:
           k8s-app: deploy-container
+      env:
+        - name: REG
+          valueFrom:
+            secretKeyRef:
+              name: reg-token
+              key: token
       securityContext:
         privileged: true
       command:

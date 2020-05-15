@@ -30,13 +30,6 @@ spec:
           env:
             - name: NODE_ENV
               value: test
-            - name: DOCKER_TLS_CERTDIR
-              value: /certs
-            - name: REG
-              valueFrom:
-                secretKeyRef:
-                  name: reg-token
-                  key: token  
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
