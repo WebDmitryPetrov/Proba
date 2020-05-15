@@ -53,7 +53,7 @@ spec:
         - cat
       tty: true
     - name: deploy
-      image: 'cr.yandex/crpudm53vvciv4b12jrt/mykubetest1'
+      image: 'cr.yandex/crpp0d9s5pabodj03mes/mykubetest'
       metadata:
         name: deploy-container
         labels:
@@ -79,8 +79,8 @@ spec:
       steps {
         container('jenkins-dind') {
           sh 'docker login --username oauth --password $REG cr.yandex'
-          sh 'docker build -t cr.yandex/crpudm53vvciv4b12jrt/test:latest .'
-          sh 'docker push cr.yandex/crpudm53vvciv4b12jrt/test:latest'
+          sh 'docker build -t cr.yandex/crpp0d9s5pabodj03mes/test:latest .'
+          sh 'docker push cr.yandex/crpp0d9s5pabodj03mes/test:latest'
         }
       }
     }

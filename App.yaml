@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: web-ui
-          image: 'cr.yandex/crpudm53vvciv4b12jrt/test:latest'
+          image: 'cr.yandex/crpp0d9s5pabodj03mes/test:latest'
           ports:
             - name: web
               containerPort: 80
