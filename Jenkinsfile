@@ -41,19 +41,7 @@ spec:
         - name: pvc-90d3b3ce-4d13-46e5-a355-9a2a5b785806
           mountPath: /var/jenkins_home
         - name: docker-certs
-          mountPath: /certs/client
-      containers:
-        - name: deploy
-          image: 'cr.yandex/crpp0d9s5pabodj03mes/mykubetest'
-          metadata:
-            name: deploy-container
-            labels:
-              k8s-app: deploy-container
-          securityContext:
-            privileged: true
-          command:
-            - cat
-          tty: true    
+          mountPath: /certs/client   
       securityContext:
         privileged: true
     - name: test
@@ -64,7 +52,7 @@ spec:
       command:
         - cat
       tty: true
-    - name: deploi
+    - name: deploy
       image: 'cr.yandex/crpp0d9s5pabodj03mes/mykubetest'
       metadata:
         name: deploy-container
