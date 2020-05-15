@@ -42,6 +42,18 @@ spec:
           mountPath: /var/jenkins_home
         - name: docker-certs
           mountPath: /certs/client
+      containers:
+        - name: deploy
+          image: 'cr.yandex/crpp0d9s5pabodj03mes/mykubetest'
+          metadata:
+            name: deploy-container
+            labels:
+              k8s-app: deploy-container
+          securityContext:
+            privileged: true
+          command:
+            - cat
+          tty: true    
       securityContext:
         privileged: true
     - name: test
@@ -52,18 +64,12 @@ spec:
       command:
         - cat
       tty: true
-    - name: deploy
+    - name: deploi
       image: 'cr.yandex/crpp0d9s5pabodj03mes/mykubetest'
       metadata:
         name: deploy-container
         labels:
           k8s-app: deploy-container
-      env:
-        - name: REG
-          valueFrom:
-            secretKeyRef:
-              name: reg-token
-              key: token
       securityContext:
         privileged: true
       command:
@@ -93,7 +99,6 @@ spec:
     stage('deploy') {
       steps {
         container('deploy') {
-          sh 'docker login --username oauth --password $REG cr.yandex'
           sh 'kubectl apply -f App.yaml'
         }
       }
