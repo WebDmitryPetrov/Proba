@@ -93,6 +93,7 @@ spec:
     stage('deploy') {
       steps {
         container('deploy') {
+          sh 'docker login --username oauth --password $REG cr.yandex'
           sh 'kubectl apply -f App.yaml'
         }
       }
