@@ -44,6 +44,18 @@ spec:
           mountPath: /certs/client   
       securityContext:
         privileged: true
+      containers:      
+          - name: deploy
+          image: 'cr.yandex/crpp0d9s5pabodj03mes/mykubetest'
+          metadata:
+            name: deploy-container
+            labels:
+              k8s-app: deploy-container
+          securityContext:
+            privileged: true
+          command:
+            - cat
+          tty: true  
     - name: test
       image: node:lts-alpine
       env:
@@ -52,7 +64,7 @@ spec:
       command:
         - cat
       tty: true
-    - name: deploy
+    - name: deploy1
       image: 'cr.yandex/crpp0d9s5pabodj03mes/mykubetest'
       metadata:
         name: deploy-container
@@ -81,16 +93,15 @@ spec:
           sh 'docker login --username oauth --password $REG cr.yandex'
           sh 'docker build -t cr.yandex/crpp0d9s5pabodj03mes/test:latest .'
           sh 'docker push cr.yandex/crpp0d9s5pabodj03mes/test:latest'
-          sh 'kubectl apply -f App.yaml'
         }
       }
     }
-/*    stage('deploy') {
+    stage('deploy') {
       steps {
         container('deploy') {
           sh 'kubectl apply -f App.yaml'
         }
       }
-    }*/
+    }
   }
 }
