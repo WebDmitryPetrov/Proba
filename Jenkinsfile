@@ -81,16 +81,16 @@ spec:
           sh 'docker login --username oauth --password $REG cr.yandex'
           sh 'docker build -t cr.yandex/crpp0d9s5pabodj03mes/test:latest .'
           sh 'docker push cr.yandex/crpp0d9s5pabodj03mes/test:latest'
-        }
-      }
-    }
-    stage('deploy') {
-      steps {
-        container('deploy') {
-          sh 'docker login --username oauth --password $REG cr.yandex'
           sh 'kubectl apply -f App.yaml'
         }
       }
     }
+/*    stage('deploy') {
+      steps {
+        container('deploy') {
+          sh 'kubectl apply -f App.yaml'
+        }
+      }
+    }*/
   }
 }
